@@ -3,7 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import * as path from 'node:path';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { PositionModule } from './modules/position/position.module';
+import { PositionsModule } from './modules/positions/positions.module';
 import { EmployeesModule } from './modules/employees/employees.module';
 
 @Module({
@@ -14,7 +14,7 @@ import { EmployeesModule } from './modules/employees/employees.module';
       autoLoadEntities: true,
       synchronize: true,
     }),
-    PositionModule,
+    PositionsModule,
     EmployeesModule,
   ],
   controllers: [AppController],

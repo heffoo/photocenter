@@ -1,4 +1,4 @@
-import { Position } from 'src/modules/position/entities/position.entity';
+import { Position } from 'src/modules/positions/entities/position.entity';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()

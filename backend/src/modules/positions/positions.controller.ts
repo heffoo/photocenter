@@ -7,7 +7,7 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
-import { PositionService } from './position.service';
+import { PositionsService } from './positions.service';
 import { CreatePositionDto } from './dto/create-position.dto';
 import { UpdatePositionDto } from './dto/update-position.dto';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
@@ -15,8 +15,8 @@ import { ParamId } from 'src/common/dto/base.dto';
 
 @ApiTags('positions')
 @Controller('positions')
-export class PositionController {
-  constructor(private readonly positionService: PositionService) {}
+export class PositionsController {
+  constructor(private readonly positionService: PositionsService) {}
 
   @ApiOperation({
     summary: 'Create position',
