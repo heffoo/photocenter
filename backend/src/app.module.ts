@@ -4,6 +4,7 @@ import * as path from 'node:path';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { PositionModule } from './modules/position/position.module';
+import { EmployeesModule } from './modules/employees/employees.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { PositionModule } from './modules/position/position.module';
       synchronize: true,
     }),
     PositionModule,
+    EmployeesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -1,4 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import e from 'express';
+import { Employee } from 'src/modules/employees/entities/employee.entity';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Position {
@@ -7,4 +9,7 @@ export class Position {
 
   @Column()
   title: string;
+
+  @OneToMany(() => Employee, (employee) => employee.position)
+  employees: Array<Employee>;
 }
