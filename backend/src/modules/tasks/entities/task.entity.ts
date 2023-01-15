@@ -1,5 +1,13 @@
 import { Employee } from 'src/modules/employees/entities/employee.entity';
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Equipment } from 'src/modules/equipment/entities/equipment.entity';
+import {
+  Column,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
 export class Task {
@@ -23,4 +31,8 @@ export class Task {
 
   @ManyToOne(() => Employee, (employee) => employee.executedTasks)
   executor: Employee;
+
+  @ManyToMany(() => Equipment, (equipment) => equipment.tasks)
+  @JoinTable()
+  equipment: Array<Equipment>;
 }

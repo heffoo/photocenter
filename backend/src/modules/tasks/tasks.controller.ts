@@ -11,11 +11,15 @@ import { TasksService } from './tasks.service';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import { ParamId } from 'src/common/dto/base.dto';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiHeader, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Consumer } from 'src/common/decorators/consumer.decorator';
 import { Employee } from '../employees/entities/employee.entity';
 
 @ApiTags('tasks')
+@ApiHeader({
+  name: 'consumerUsername',
+  description: 'Username of consumer',
+})
 @Controller('tasks')
 export class TasksController {
   constructor(private readonly tasksService: TasksService) {}

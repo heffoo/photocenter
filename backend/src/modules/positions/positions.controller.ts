@@ -10,10 +10,14 @@ import {
 import { PositionsService } from './positions.service';
 import { CreatePositionDto } from './dto/create-position.dto';
 import { UpdatePositionDto } from './dto/update-position.dto';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiHeader, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { ParamId } from 'src/common/dto/base.dto';
 
 @ApiTags('positions')
+@ApiHeader({
+  name: 'consumerUsername',
+  description: 'Username of consumer',
+})
 @Controller('positions')
 export class PositionsController {
   constructor(private readonly positionService: PositionsService) {}

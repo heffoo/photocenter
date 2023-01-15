@@ -8,6 +8,7 @@ import { EmployeesModule } from './modules/employees/employees.module';
 import { TaskModule } from './modules/tasks/tasks.module';
 import { ConsumerMiddleware } from './common/middlewares/consumer.middleware';
 import { Employee } from './modules/employees/entities/employee.entity';
+import { EquipmentModule } from './modules/equipment/equipment.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { Employee } from './modules/employees/entities/employee.entity';
     PositionsModule,
     EmployeesModule,
     TaskModule,
+    EquipmentModule,
   ],
   controllers: [AppController],
   providers: [AppService],

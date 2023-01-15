@@ -10,10 +10,14 @@ import {
 import { EmployeesService } from './employees.service';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
 import { UpdateEmployeeDto } from './dto/update-employee.dto';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiHeader, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { ParamId } from 'src/common/dto/base.dto';
 
 @ApiTags('employees')
+@ApiHeader({
+  name: 'consumerUsername',
+  description: 'Username of consumer',
+})
 @Controller('employees')
 export class EmployeesController {
   constructor(private readonly employeesService: EmployeesService) {}
