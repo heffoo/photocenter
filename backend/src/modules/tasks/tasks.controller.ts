@@ -17,7 +17,7 @@ import { Employee } from '../employees/entities/employee.entity';
 
 @ApiTags('tasks')
 @ApiHeader({
-  name: 'consumerUsername',
+  name: 'consumerusername',
   description: 'Username of consumer',
 })
 @Controller('tasks')

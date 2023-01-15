@@ -15,7 +15,7 @@ import { ParamId } from 'src/common/dto/base.dto';
 
 @ApiTags('employees')
 @ApiHeader({
-  name: 'consumerUsername',
+  name: 'consumerusername',
   description: 'Username of consumer',
 })
 @Controller('employees')

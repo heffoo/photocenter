@@ -9,6 +9,7 @@ import { TaskModule } from './modules/tasks/tasks.module';
 import { ConsumerMiddleware } from './common/middlewares/consumer.middleware';
 import { Employee } from './modules/employees/entities/employee.entity';
 import { EquipmentModule } from './modules/equipment/equipment.module';
+import { Position } from './modules/positions/entities/position.entity';
 
 @Module({
   imports: [
@@ -18,7 +19,7 @@ import { EquipmentModule } from './modules/equipment/equipment.module';
       autoLoadEntities: true,
       synchronize: true,
     }),
-    TypeOrmModule.forFeature([Employee]),
+    TypeOrmModule.forFeature([Employee, Position]),
     PositionsModule,
     EmployeesModule,
     TaskModule,
