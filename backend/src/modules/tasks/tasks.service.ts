@@ -51,10 +51,6 @@ export class TasksService {
       throw new NotFoundException();
     }
 
-    if (task.creatorId !== consumerId) {
-      throw new ForbiddenException();
-    }
-
     Object.assign(task, updateTaskDto);
 
     await this.tasksRepository.save(task);
