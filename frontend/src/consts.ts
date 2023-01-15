@@ -2,7 +2,7 @@ import type { TabsProps } from "antd";
 
 export const tabsItems: TabsProps["items"] = [
     {
-      key: "task",
+      key: "tasks",
       label: `Задачи`,
       children: `Content of Tab Pane 1`,
     },
@@ -12,7 +12,7 @@ export const tabsItems: TabsProps["items"] = [
       children: `Content of Tab Pane 2`,
     },
     {
-      key: "position",
+      key: "positions",
       label: `Роли`,
       children: `Content of Tab Pane 3`,
     },
