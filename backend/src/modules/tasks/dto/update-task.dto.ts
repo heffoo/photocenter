@@ -1,6 +1,12 @@
 import { PartialType } from '@nestjs/swagger';
-import { Exclude } from 'class-transformer';
+import { Exclude, Expose } from 'class-transformer';
+import { IsOptional, IsUUID } from 'class-validator';
 import { CreateTaskDto } from './create-task.dto';
 
 @Exclude()
-export class UpdateTaskDto extends PartialType(CreateTaskDto) {}
+export class UpdateTaskDto extends PartialType(CreateTaskDto) {
+  @Expose()
+  @IsUUID(4)
+  @IsOptional()
+  executorId?: string;
+}
