@@ -23,8 +23,10 @@ export class Task {
   @Column()
   creatorId: string;
 
-  @Column()
-  executorId: string;
+  @Column({
+    nullable: true,
+  })
+  executorId: string | null;
 
   @ManyToOne(() => Employee, (employee) => employee.createdTasks)
   creator: Employee;
