@@ -113,7 +113,7 @@ const App = ({ activeTab }: TableProps) => {
         setEditingKey("");
       }
     } catch (errInfo) {
-      console.log("Validate Failed:", errInfo);
+      console.warn("Validate Failed:", errInfo);
     }
   };
 
