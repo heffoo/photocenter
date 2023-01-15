@@ -29,7 +29,9 @@ export class TasksService {
   }
 
   findAll() {
-    return this.tasksRepository.find();
+    return this.tasksRepository.find({
+      relations: ['executor'],
+    });
   }
 
   async findOne(id: string) {
