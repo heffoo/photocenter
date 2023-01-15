@@ -1,10 +1,13 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as path from 'node:path';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { PositionsModule } from './modules/positions/positions.module';
 import { EmployeesModule } from './modules/employees/employees.module';
+import { TaskModule } from './modules/tasks/tasks.module';
+import { ConsumerMiddleware } from './common/middlewares/consumer.middleware';
+import { Employee } from './modules/employees/entities/employee.entity';
 
 @Module({
   imports: [
@@ -14,10 +17,16 @@ import { EmployeesModule } from './modules/employees/employees.module';
       autoLoadEntities: true,
       synchronize: true,
     }),
+    TypeOrmModule.forFeature([Employee]),
     PositionsModule,
     EmployeesModule,
+    TaskModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(ConsumerMiddleware).forRoutes('*');
+  }
+}

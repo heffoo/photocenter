@@ -5,11 +5,11 @@ import { IsString, IsUUID } from 'class-validator';
 export class CreateEmployeeDto {
   @Expose()
   @IsString()
-  firstName: string;
+  firstname: string;
 
   @Expose()
   @IsString()
-  lastName: string;
+  lastname: string;
 
   @Expose()
   @IsUUID()
