@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": null,
-  "scripts": {
-  },
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/heffoo/photocenter.git"
@@ -14,5 +13,8 @@
   "bugs": {
     "url": "https://github.com/heffoo/photocenter/issues"
   },
-  "homepage": "https://github.com/heffoo/photocenter#readme"
+  "homepage": "https://github.com/heffoo/photocenter#readme",
+  "dependencies": {
+    "antd": "^5.1.4"
+  }
 }
