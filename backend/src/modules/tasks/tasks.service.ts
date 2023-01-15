@@ -65,10 +65,6 @@ export class TasksService {
       throw new NotFoundException();
     }
 
-    if (task.creatorId !== consumerId) {
-      throw new ForbiddenException();
-    }
-
     await this.tasksRepository.remove(task);
   }
 }
