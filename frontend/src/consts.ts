@@ -62,7 +62,7 @@ export const columnsType = (key: string) => {
         },
         {
           title: "Пользователь",
-          dataIndex: ["executor", "usename"],
+          dataIndex: ["executor", "username"],
           key: "executorUserName",
           editable: true,
         },

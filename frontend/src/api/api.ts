@@ -9,14 +9,15 @@ export const getTableData = async (key: string) => {
   return resp
 };
 
-export const updateTableData = async (key: string, data: any) => {
+export const updateTableData = async (key: string, data: any, id: string) => {
   console.log(key, data)
-  const resp = await fetch(`http://localhost:3000/${key}/${data.id}`, {
+  const resp = await fetch(`http://localhost:3000/${key}/${id}`, {
     method: "PATCH",
     headers: {
+      "Content-Type": "application/json",
       consumerusername: login,
     },
-    body: data,
+    body: JSON.stringify(data),
   });
   return resp
 };

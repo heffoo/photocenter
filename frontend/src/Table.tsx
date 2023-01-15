@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Form, Input, InputNumber, Popconfirm, Table, Typography } from "antd";
 import { columnsType } from "./consts";
 import { TableType } from "./types";
-import { updateTableData } from "./api/api";
+import { getTableData, updateTableData } from "./api/api";
 
 interface EditableCellProps extends React.HTMLAttributes<HTMLElement> {
   editing: boolean;
@@ -12,6 +12,10 @@ interface EditableCellProps extends React.HTMLAttributes<HTMLElement> {
   record: TableType;
   index: number;
   children: React.ReactNode;
+}
+
+interface TableProps {
+  activeTab: string;
 }
 
 const EditableCell: React.FC<EditableCellProps> = ({
@@ -48,10 +52,20 @@ const EditableCell: React.FC<EditableCellProps> = ({
   );
 };
 
-const App: React.FC = ({ currentTableData, activeTab }: any) => {
+const App = ({ activeTab }: TableProps) => {
   const [form] = Form.useForm();
-  const [data, setData] = useState(currentTableData);
+  const [data, setData] = useState<TableType[]>([]);
   const [editingKey, setEditingKey] = useState("");
+  const [currentTableData, setCurrentTableData] = useState([]);
+
+  const getTable = async () => {
+    const resp = await getTableData(activeTab);
+    setCurrentTableData(await resp.json());
+  };
+
+  useEffect(() => {
+    getTable();
+  }, [activeTab]);
 
   const isEditing = (record: TableType) => record.id === editingKey;
 
@@ -77,7 +91,7 @@ const App: React.FC = ({ currentTableData, activeTab }: any) => {
           ...row,
         });
         setData(newData);
-        updateTableData(activeTab, row);
+        updateTableData(activeTab, row, item.id);
         setEditingKey("");
       } else {
         newData.push(row);
