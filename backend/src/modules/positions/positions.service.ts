@@ -1,16 +1,35 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, OnModuleInit } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreatePositionDto } from './dto/create-position.dto';
 import { UpdatePositionDto } from './dto/update-position.dto';
-import { Position } from './entities/position.entity';
+import {
+  DEFAULT_POSITION_DESCRIPTION,
+  DEFAULT_POSITION_TITLE,
+  Position,
+} from './entities/position.entity';
 
 @Injectable()
-export class PositionsService {
+export class PositionsService implements OnModuleInit {
   constructor(
     @InjectRepository(Position)
     private readonly positionRepository: Repository<Position>,
   ) {}
+
+  async onModuleInit() {
+    const foundDefaultPosition = await this.positionRepository.findOneBy({
+      title: DEFAULT_POSITION_TITLE,
+    });
+
+    if (!foundDefaultPosition) {
+      await this.positionRepository.save(
+        this.positionRepository.create({
+          title: DEFAULT_POSITION_TITLE,
+          description: DEFAULT_POSITION_DESCRIPTION,
+        }),
+      );
+    }
+  }
 
   async create(createPositionDto: CreatePositionDto) {
     const position = this.positionRepository.create(createPositionDto);

@@ -6,4 +6,8 @@ export class CreatePositionDto {
   @Expose()
   @IsString()
   title: string;
+
+  @Expose()
+  @IsString()
+  description: string;
 }
