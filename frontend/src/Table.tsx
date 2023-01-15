@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   Button,
   Form,
@@ -67,14 +67,14 @@ const App = ({ activeTab }: TableProps) => {
   const [editingKey, setEditingKey] = useState("");
   const [currentTableData, setCurrentTableData] = useState([]);
 
-  const getTable = async () => {
+  const getTable = useCallback(async () => {
     const resp = await getTableData(activeTab);
     setCurrentTableData(await resp.json());
-  };
+  }, [activeTab]);
 
   useEffect(() => {
     getTable();
-  }, [activeTab]);
+  }, [activeTab, getTable]);
 
   const isEditing = (record: TableType) => record.id === editingKey;
 
