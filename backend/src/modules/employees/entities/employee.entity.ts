@@ -13,13 +13,19 @@ export class Employee {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @Column({
+    nullable: true,
+  })
   firstname: string;
 
-  @Column()
+  @Column({
+    nullable: true,
+  })
   lastname: string;
 
-  @Column()
+  @Column({
+    nullable: true,
+  })
   username: string;
 
   @Column()

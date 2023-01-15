@@ -1,17 +1,20 @@
 import { Exclude, Expose } from 'class-transformer';
-import { IsString, IsUUID } from 'class-validator';
+import { IsOptional, IsString, IsUUID } from 'class-validator';
 
 @Exclude()
 export class CreateEmployeeDto {
   @Expose()
   @IsString()
-  firstname: string;
+  @IsOptional()
+  firstname?: string;
 
   @Expose()
   @IsString()
-  lastname: string;
+  @IsOptional()
+  lastname?: string;
 
   @Expose()
   @IsUUID()
-  positionId: string;
+  @IsOptional()
+  positionId?: string;
 }

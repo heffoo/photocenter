@@ -45,6 +45,12 @@ export const columnsType = (key: string) => {
           key: "username",
           editable: true,
         },
+        {
+          title: "Должность",
+          dataIndex: ["position", "title"],
+          key: "positionTitle",
+          editable: true,
+        },
       ];
     case "tasks":
       return [

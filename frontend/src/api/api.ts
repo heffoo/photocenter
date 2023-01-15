@@ -6,11 +6,21 @@ export const getTableData = async (key: string) => {
       consumerusername: login,
     },
   });
-  return resp
+  return resp;
+};
+
+export const createTableRow = async (key: string) => {
+  const resp = await fetch(`http://localhost:3000/${key}`, {
+    method: "POST",
+    headers: {
+      consumerusername: login,
+    },
+  });
+
+  return resp;
 };
 
 export const updateTableData = async (key: string, data: any, id: string) => {
-  console.log(key, data)
   const resp = await fetch(`http://localhost:3000/${key}/${id}`, {
     method: "PATCH",
     headers: {
@@ -19,5 +29,5 @@ export const updateTableData = async (key: string, data: any, id: string) => {
     },
     body: JSON.stringify(data),
   });
-  return resp
+  return resp;
 };

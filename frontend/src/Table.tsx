@@ -1,8 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { Form, Input, InputNumber, Popconfirm, Table, Typography } from "antd";
+import {
+  Button,
+  Form,
+  Input,
+  InputNumber,
+  Popconfirm,
+  Table,
+  Typography,
+} from "antd";
 import { columnsType } from "./consts";
 import { TableType } from "./types";
-import { getTableData, updateTableData } from "./api/api";
+import { createTableRow, getTableData, updateTableData } from "./api/api";
+import { refresh } from "./utils/refresh";
 
 interface EditableCellProps extends React.HTMLAttributes<HTMLElement> {
   editing: boolean;
@@ -74,6 +83,11 @@ const App = ({ activeTab }: TableProps) => {
     setEditingKey(record.id);
   };
 
+  const create = () => {
+    createTableRow(activeTab);
+    refresh();
+  };
+
   const cancel = () => {
     setEditingKey("");
   };
@@ -127,12 +141,20 @@ const App = ({ activeTab }: TableProps) => {
             </Popconfirm>
           </span>
         ) : (
-          <Typography.Link
+          <>
+            <Typography.Link
+              disabled={editingKey !== ""}
+              onClick={() => edit(record)}
+            >
+              Редактировать
+            </Typography.Link>
+            {/* <Typography.Link
             disabled={editingKey !== ""}
             onClick={() => edit(record)}
           >
-            Редактировать
-          </Typography.Link>
+            Удалить
+          </Typography.Link> */}
+          </>
         );
       },
     },
@@ -172,14 +194,9 @@ const App = ({ activeTab }: TableProps) => {
         rowClassName="editable-row"
         pagination={false}
       />
+      <Button onClick={create}>Создать</Button>
     </Form>
   );
 };
 
 export default App;
-
-// .editable-row .ant-form-item-explain {
-//   position: absolute;
-//   top: 100%;
-//   font-size: 12px;
-// }

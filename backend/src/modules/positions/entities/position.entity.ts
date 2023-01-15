@@ -10,10 +10,14 @@ export class Position {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @Column({
+    nullable: true,
+  })
   title: string;
 
-  @Column()
+  @Column({
+    nullable: true,
+  })
   description: string;
 
   @OneToMany(() => Employee, (employee) => employee.position)
