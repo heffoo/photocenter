@@ -1,53 +1,65 @@
-import React from "react";
-import { Table, Tabs } from "antd";
+import React, { useState, useEffect, useCallback } from "react";
+import {  Tabs } from "antd";
 import "./App.css";
-import { tabsItems } from "./consts";
+import { columnsType, tabsItems } from "./consts";
+import { Authorization } from "./Authorization";
+import { getTableData } from "./api/api";
+import Table from "./Table";
 
 function App() {
-  const getTable = (key: string) => {
-    // const resp = fetch(`localhost:3000/${key}`);
-    // console.log(resp);
+  const [login, setLogin] = useState(
+    localStorage.getItem("consumerusername") || ""
+  );
+  const [activeTab, setActiveTab] = useState("tasks");
+  const [currentTableData, setCurrentTableData] = useState([]);
+
+  const saveUser = useCallback(() => {
+    localStorage.setItem("consumerusername", login);
+    window.location.reload();
+  }, [login]);
+
+  const getTable = async () => {
+    const resp = await getTableData(activeTab);
+    setCurrentTableData(await resp.json());
   };
 
-  const dataSource = [
-    {
-      key: "1",
-      name: "Mike",
-      age: 32,
-      address: "10 Downing Street",
-    },
-    {
-      key: "2",
-      name: "John",
-      age: 42,
-      address: "10 Downing Street",
-    },
-  ];
+  useEffect(() => {
+    getTable();
+  }, [activeTab]);
 
-  const columns = [
-    {
-      title: "Name",
-      dataIndex: "name",
-      key: "name",
-    },
-    {
-      title: "Age",
-      dataIndex: "age",
-      key: "age",
-    },
-    {
-      title: "Address",
-      dataIndex: "address",
-      key: "address",
-    },
-  ];
+  const dataForRender = () => {
+    const arr = columnsType(activeTab);
+
+    return [
+      ...arr,
+      {
+        title: "Редактировать",
+        key: "actions",
+        render: () => <div></div>,
+      },
+    ];
+  };
 
   return (
     <div className="App">
-      <header className="App-header">
-        <Tabs defaultActiveKey="1" items={tabsItems} onChange={getTable} />
-        <Table columns={columns} dataSource={dataSource} pagination={false} />
-      </header>
+      {login ? (
+        <>
+          <Tabs
+            defaultActiveKey="1"
+            items={tabsItems}
+            onChange={setActiveTab}
+          />
+          {/* <Table
+            columns={dataForRender()}
+            dataSource={currentTableData}
+            pagination={false}
+          /> */}
+          {/* @ts-ignore */}
+          <Table currentTableData={currentTableData} activeTab={activeTab} />
+        </>
+      ) : (
+        <Authorization setLogin={setLogin} saveUser={saveUser} />
+      )}
     </div>
   );
 }
