@@ -10,7 +10,12 @@ import {
 } from "antd";
 import { columnsType } from "./consts";
 import { TableType } from "./types";
-import { createTableRow, getTableData, updateTableData } from "./api/api";
+import {
+  createTableRow,
+  getTableData,
+  removeTableRow,
+  updateTableData,
+} from "./api/api";
 import { refresh } from "./utils/refresh";
 
 interface EditableCellProps extends React.HTMLAttributes<HTMLElement> {
@@ -92,6 +97,11 @@ const App = ({ activeTab }: TableProps) => {
     setEditingKey("");
   };
 
+  const remove = (id: string) => {
+    removeTableRow(activeTab, id);
+    refresh();
+  };
+
   const save = async (key: React.Key) => {
     try {
       const row = (await form.validateFields()) as TableType;
@@ -137,7 +147,15 @@ const App = ({ activeTab }: TableProps) => {
               Сохранить
             </Typography.Link>
             <Popconfirm title="Вы точно хотите отменить?" onConfirm={cancel}>
-              <Typography.Link>Отменить</Typography.Link>
+              <Typography.Link style={{ marginRight: 8 }}>
+                Отменить
+              </Typography.Link>
+            </Popconfirm>
+            <Popconfirm
+              title="Вы точно хотите удалить?"
+              onConfirm={() => remove(record.id)}
+            >
+              <Typography.Link>Удалить</Typography.Link>
             </Popconfirm>
           </span>
         ) : (
@@ -148,12 +166,6 @@ const App = ({ activeTab }: TableProps) => {
             >
               Редактировать
             </Typography.Link>
-            {/* <Typography.Link
-            disabled={editingKey !== ""}
-            onClick={() => edit(record)}
-          >
-            Удалить
-          </Typography.Link> */}
           </>
         );
       },
@@ -194,7 +206,7 @@ const App = ({ activeTab }: TableProps) => {
         rowClassName="editable-row"
         pagination={false}
       />
-      <Button onClick={create}>Создать</Button>
+      <Button onClick={create}>Создать строку</Button>
     </Form>
   );
 };
